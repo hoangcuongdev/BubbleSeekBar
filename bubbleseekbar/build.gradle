@@ -1,16 +1,19 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
 
-def VERSION_NAME = "3.5"
+group='com.github.sergey-pokrovskyi'
+
+version = "3.5-v1"
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 21
-        versionName VERSION_NAME
+        versionName "3.5"
     }
 
     buildTypes {
@@ -23,15 +26,34 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    provided 'com.android.support:appcompat-v7:25.3.1'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile 'com.android.support:appcompat-v7:25.4.0'
+
+    testCompile 'junit:junit:4.12'
 }
 
-apply plugin: 'com.novoda.bintray-release'
-publish {
-    userOrg = 'woxingxiao'
-    groupId = 'com.xw.repo'
-    artifactId = 'bubbleseekbar'
-    publishVersion = VERSION_NAME
-    desc = 'A beautiful Android custom seekbar, which has a bubble view with progress appearing upon when seeking.'
-    website = 'https://github.com/woxingxiao/BubbleSeekBar'
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    failOnError  false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+// build a jar with javadoc
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }

@@ -1,3 +1,24 @@
+Libs updated, some deprecated methods updated
+
+minSdk - 15
+
+```groovy
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+```groovy
+dependencies {
+    compile 'com.github.sergey-pokrovskyi:BubbleSeekBar:v3.5-v1'
+}
+```
+[v3.5-v1 Javadoc](https://jitpack.io/com/github/sergey-pokrovskyi/BubbleSeekBar/v3.5-v1/javadoc/)
+
+**Original Description:**
+=
+
 [![Download](https://api.bintray.com/packages/woxingxiao/maven/bubbleseekbar/images/download.svg?version=3.4)](https://bintray.com/woxingxiao/maven/bubbleseekbar/3.0/link)
 [![Download](https://api.bintray.com/packages/woxingxiao/maven/bubbleseekbar/images/download.svg?version=3.4-lite)](https://bintray.com/woxingxiao/maven/bubbleseekbar/3.0-lite/link)
 [![License](http://img.shields.io/badge/License-Apache%202.0-brightgreen.svg?style=flat)](https://opensource.org/licenses/Apache-2.0)
